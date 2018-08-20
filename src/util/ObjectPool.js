@@ -49,8 +49,7 @@ export default class ObjectPool {
     inst.remove()
     const { pool, maxCount } = this
     pool.push(inst)
-    inst.attr(this.defaultAttrs)
-
+    // inst.attr(this.defaultAttrs)
     if (pool.length > maxCount) {
       pool.splice(0, pool.length - maxCount)
     }

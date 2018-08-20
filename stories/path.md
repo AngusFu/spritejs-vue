@@ -1,6 +1,7 @@
 ---
 title: 'Paths'
 route: /path
+index: 2
 ---
 
 # Paths

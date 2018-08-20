@@ -1,6 +1,7 @@
 ---
 title: 'Sprite'
 route: /
+index: 1
 ---
 
 # Sprite

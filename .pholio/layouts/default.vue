@@ -1,7 +1,7 @@
 <template lang="pug">
   .app(:style="style")
     .navbar
-      router-link(tag="div" to="/").site-title data mining
+      router-link(tag="div" to="/").site-title SpriteVue
       router-link.navbar__item(
         v-for="(page, index) in pages"
         :key="index"

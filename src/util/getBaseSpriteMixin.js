@@ -1,5 +1,6 @@
 import cloneDeep from 'lodash/cloneDeep'
 import ObjectPool from './ObjectPool'
+import * as Events from './delegateEvents'
 
 export default Ctor => ({
   props: {
@@ -16,17 +17,17 @@ export default Ctor => ({
 
     return {
       layer: null,
-      s__elem: objectPool.getInstance()
+      spriteElem: objectPool.getInstance()
     }
   },
 
   watch: {
-    '$layer.s__elem': {
+    '$layer.spriteElem': {
       handler (newLayer, oldLayer) {
         if (newLayer && newLayer !== oldLayer) {
           this.layer = newLayer
-          oldLayer && oldLayer.removeChild(this.s__elem)
-          newLayer.append(this.s__elem)
+          oldLayer && oldLayer.removeChild(this.spriteElem)
+          newLayer.appendChild(this.spriteElem)
           this.updateAttrs(this.attrs)
         }
       },
@@ -43,16 +44,23 @@ export default Ctor => ({
 
   methods: {
     updateAttrs (attrs) {
-      this.s__elem.attr(cloneDeep(attrs))
+      this.spriteElem.attr(cloneDeep(attrs))
     },
     animate (...args) {
       this.anims = this.anims || []
-      this.anims.push(this.s__elem.animate(...args))
+      this.anims.push(this.spriteElem.animate(...args))
     }
   },
 
   render (h) {
-    return h('div', { attrs: { id: this.id } }, this.$slots.default)
+    return h('div', {
+      staticClass: `spritejs-${Ctor.toLowerCase()}`,
+      attrs: { id: this.id }
+    }, this.$slots.default)
+  },
+
+  created () {
+    Events.delegate(this)
   },
 
   destroyed () {
@@ -62,8 +70,9 @@ export default Ctor => ({
       })
     }
 
-    this.objectPool.recycle(this.s__elem)
-    this.s__elem = null
+    Events.undelegate(this)
+    this.objectPool.recycle(this.spriteElem)
+    this.spriteElem = null
     this.anims = null
   }
 })

@@ -7,8 +7,8 @@ export default {
   name: 's-label',
   render (h) {
     const text = getChildrenTextContent(this.$slots.default)
-    text && this.s__elem.attr('text', text)
-    return h('div', { attrs: { id: this.id } })
+    text && this.spriteElem.attr('text', text)
+    return h('span', { attrs: { id: this.id } }, text)
   }
 }
 

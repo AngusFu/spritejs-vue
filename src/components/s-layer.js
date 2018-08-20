@@ -1,3 +1,6 @@
+import staticStyle from './static-style'
+import * as Events from '../util/delegateEvents'
+
 export default {
   name: 's-layer',
   props: {
@@ -22,12 +25,12 @@ export default {
 
   data () {
     return {
-      s__elem: null
+      spriteElem: null
     }
   },
 
   watch: {
-    '$paper.s__elem': {
+    '$paper.spriteElem': {
       handler (newScene, oldScene) {
         if (newScene && newScene !== oldScene) {
           this.destoryLayer()
@@ -61,37 +64,46 @@ export default {
     }
   },
 
-  render (h) {
-    return h('div', { attrs: { id: this.id } }, this.$slots.default)
-  },
-
   methods: {
     reInit () {
-      this.s__elem = this.scene.layer(this.id, this.config)
+      this.spriteElem = this.scene.layer(this.id, this.config)
+      Events.delegate(this)
       this.updateCanvas()
     },
+
     destoryLayer () {
-      const { scene, s__elem } = this
-      if (scene && s__elem) {
-        scene.removeLayer(s__elem)
-        this.s__elem = null
+      const { scene, spriteElem } = this
+      if (scene && spriteElem) {
+        Events.undelegate(this)
+        scene.removeLayer(spriteElem)
+        this.spriteElem = null
       }
     },
-    updateCanvas () {
-      const { s__elem, layerStyle } = this
 
-      if (s__elem && s__elem.canvas) {
+    updateCanvas () {
+      const { spriteElem, layerStyle } = this
+
+      if (spriteElem && spriteElem.canvas) {
         if (typeof layerStyle === 'string') {
-          s__elem.canvas.style.cssText += layerStyle
+          spriteElem.canvas.style.cssText += layerStyle
         } else {
-          Object.assign(s__elem.canvas.style, layerStyle)
+          Object.assign(spriteElem.canvas.style, layerStyle)
         }
       }
     }
   },
 
+  render (h) {
+    return h('div', {
+      staticStyle,
+      staticClass: 'spritejs-layer',
+      attrs: { id: this.id }
+    }, this.$slots.default)
+  },
+
   destroyed () {
-    const { scene, s__elem } = this
-    scene.removeChild(s__elem)
+    const { scene, spriteElem } = this
+    scene.removeChild(spriteElem)
+    Events.undelegate(this)
   }
 }

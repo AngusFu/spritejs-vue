@@ -32,8 +32,35 @@ export default {
       Path
     ]
 
+    if (options.globalSpriteRefMixin) {
+      Vue.mixin(spriteRefMixin)
+    }
+
     comps.forEach(comp => {
       Vue.component(comp.name, comp)
     })
+  }
+}
+
+const spriteRefMixin = {
+  computed: {
+    $spritesRefs () {
+      const obj = {}
+      const { $refs } = this
+      const props = Object.keys($refs).reduce((acc, key) => {
+        acc[key] = {
+          get () {
+            const ref = $refs[key]
+            if (ref && ref.spriteElem) {
+              return ref.spriteElem
+            }
+            return null
+          }
+        }
+        return acc
+      }, {})
+
+      return Object.defineProperties(obj, props)
+    }
   }
 }

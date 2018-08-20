@@ -1,6 +1,7 @@
 ---
 title: 'Labels'
 route: /label
+index: 3
 ---
 
 # Labels

@@ -6,7 +6,7 @@ export default {
   mixins: [getBaseSpriteMixin('Group')],
   provide () {
     return {
-      $layer: { s__elem: this.s__elem }
+      $layer: { spriteElem: this.spriteElem }
     }
   }
 }

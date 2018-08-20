@@ -4,6 +4,9 @@ import '../styles/index.css'
 
 export default {
   install (Vue) {
-    Vue.use(SpriteVue, { spritejs: window.spritejs })
+    Vue.use(SpriteVue, {
+      spritejs: window.spritejs,
+      globalSpriteRefMixin: true
+    })
   }
 }

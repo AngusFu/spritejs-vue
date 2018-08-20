@@ -1,6 +1,7 @@
 ---
 title: 'Group'
 route: /group
+index: 4
 ---
 
 # Group

@@ -1,5 +1,5 @@
 import { ResizeObserver } from 'vue-resize'
-import 'vue-resize/dist/vue-resize.css'
+import staticStyle from './static-style'
 
 export default {
   name: 's-scene',
@@ -11,28 +11,28 @@ export default {
     }
   },
   data () {
-    return { s__elem: null }
+    return { spriteElem: null }
   },
   methods: {
     handleResize () {
-      this.s__elem.updateViewport()
+      this.spriteElem.updateViewport()
     }
   },
   render (h) {
     return h('div', { staticClass: 'spritejs-scene' }, [
-      h('resize-observer', { onNotify: this.handleResize }),
+      h('resize-observer', { staticStyle, onNotify: this.handleResize }),
       this.$slots.default
     ])
   },
   mounted () {
     const { Scene } = this.$spritejs
-    this.s__elem = new Scene(this.$el, {
+    this.spriteElem = new Scene(this.$el, {
       viewport: ['auto', 'auto'],
       resolution: [1520, 600]
     })
   },
   destroyed () {
-    this.s__elem.off()
-    this.s__elem = null
+    this.spriteElem.off()
+    this.spriteElem = null
   }
 }
