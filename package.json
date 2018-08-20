@@ -1,0 +1,45 @@
+{
+  "name": "sprite-vue",
+  "version": "0.0.1",
+  "description": "vue wrapper for sprite.js",
+  "keywords": [],
+  "main": "dist/sprite-vue.common.js",
+  "module": "dist/sprite-vue.esm.js",
+  "unpkg": "dist/sprite-vue.js",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build:watch": "cross-env NODE_ENV=development rollup -c rollup.config.js -w",
+    "build:dev": "cross-env NODE_ENV=development rollup -c rollup.config.js",
+    "build": "cross-env NODE_ENV=production rollup -c rollup.config.js",
+    "start": "pholio start"
+  },
+  "devDependencies": {
+    "cross-env": "^5.2.0",
+    "pholio": "0.2.0-alpha.2",
+    "postcss-preset-env": "^5.3.0",
+    "pug": "^2.0.3",
+    "rollup": "^0.64.1",
+    "rollup-plugin-buble": "^0.19.2",
+    "rollup-plugin-commonjs": "^9.1.5",
+    "rollup-plugin-node-resolve": "^3.3.0",
+    "rollup-plugin-postcss": "^1.6.2",
+    "rollup-plugin-replace": "^2.0.0",
+    "rollup-plugin-uglify": "^4.0.0"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AngusFu/sprite-vue.git"
+  },
+  "bugs": {
+    "url": "https://github.com/AngusFu/sprite-vue/issues"
+  },
+  "homepage": "https://github.com/AngusFu/sprite-vue#readme",
+  "author": "wemlion<angusfu1126@qq.com>",
+  "dependencies": {
+    "lodash": "^4.17.10",
+    "vue-resize": "^0.4.4"
+  }
+}
