@@ -13,7 +13,8 @@
     "build:watch": "cross-env NODE_ENV=development rollup -c rollup.config.js -w",
     "build:dev": "cross-env NODE_ENV=development rollup -c rollup.config.js",
     "build": "cross-env NODE_ENV=production rollup -c rollup.config.js",
-    "start": "pholio start"
+    "start": "pholio start",
+    "build:doc": "pholio build"
   },
   "devDependencies": {
     "cross-env": "^5.2.0",
